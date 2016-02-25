@@ -20,6 +20,7 @@
  * @package       mod_publication
  * @author        Andreas Hruska (andreas.hruska@tuwien.ac.at)
  * @author        Katarzyna Potocka (katarzyna.potocka@tuwien.ac.at)
+ * @author        Philipp Hager (office@phager.at)
  * @author        Andreas Windbichler
  * @copyright     2014 Academic Moodle Cooperation {@link http://www.academic-moodle-cooperation.org}
  * @license       http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -38,10 +39,7 @@ $string['publication:view'] = 'View student folder';
 $string['publication:upload'] = 'Upload files to a student folder';
 $string['publication:approve'] = 'Decide if files should be visible for every student';
 $string['publication:grantextension'] = 'Grant extension';
-
 $string['name'] = 'Student folder name';
-$string['requiremodintro'] = 'Require activity description';
-$string['configrequiremodintro'] = 'Disable this option if you do not want to force users to enter description of each activity.';
 $string['obtainstudentapproval'] = 'Obtain approval';
 $string['saveapproval'] = 'save approval';
 $string['configobtainstudentapproval'] = 'Documents are visible after the student´s consent.';
@@ -88,6 +86,7 @@ If any file type is possible, leave the field empty. The filter is not case sens
 $string['allowedfiletypes_err'] = 'Check input! Invalid file extensions or seperators';
 $string['obtainteacherapproval_help'] = 'Decide if files will be made visible immediately upon upload or not: <br><ul><li> yes - all files will be visible to everyone right away</li><li> no - files will be published only after the teacher approved</li></ul>';
 $string['assignment'] = 'Assignment';
+$string['assignment_help'] = 'Choose the assignment to import files from. In the moment group-assignments are not supported and therefore not selectable.';
 $string['obtainstudentapproval_help'] = 'Decide if students approval will be obtained: <br><ul><li> yes - files will be visible to all only after the student approved. The teacher may select individual students/files to ask for approval.</li><li> no - the student’s approval will not be obtained via Moodle. The file’s visibility is solely the teacher’s desicion.</li></ul>';
 $string['choose'] = 'please choose ...';
 $string['importfrom_err'] = 'You have to choose an assignment you want to import from.';
@@ -177,3 +176,7 @@ $string['guideline'] = 'visible for everybody:';
 $string['published_immediately'] = 'yes immediately, without approval by a teacher';
 $string['published_aftercheck'] = 'no, only after approval by a teacher';
 $string['save_changes'] = 'Save changes';
+
+// Deprecated since Moodle 2.9!
+$string['requiremodintro'] = 'Require activity description';
+$string['configrequiremodintro'] = 'Disable this option if you do not want to force users to enter description of each activity.';

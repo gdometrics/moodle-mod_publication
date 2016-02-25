@@ -20,11 +20,18 @@
  * @package       mod_publication
  * @author        Andreas Hruska (andreas.hruska@tuwien.ac.at)
  * @author        Katarzyna Potocka (katarzyna.potocka@tuwien.ac.at)
+ * @author        Philipp Hager (office@phager.at)
  * @author        Andreas Windbichler
  * @copyright     2014 Academic Moodle Cooperation {@link http://www.academic-moodle-cooperation.org}
  * @license       http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+/**
+ * Handles all the upgrade steps for mod_publication
+ *
+ * @param int $oldversion the currently installed publication version
+ * @return bool true if everythings allright
+ */
 function xmldb_publication_upgrade($oldversion) {
     global $CFG, $DB, $OUTPUT;
 
@@ -43,6 +50,14 @@ function xmldb_publication_upgrade($oldversion) {
 
         // Organizer savepoint reached.
         upgrade_mod_savepoint(true, 2014032201, 'publication');
+    }
+
+    if ($oldversion < 2015120201) {
+        // Remove unused settings (requiremodintro and duplicates of stdexamplecount and requiremodintro)!
+        $DB->delete_records('config_plugins', array('plugin' => 'publication',
+                                                    'name'   => 'requiremodintro'));
+
+        upgrade_mod_savepoint(true, 2015120201, 'publication');
     }
 
     return true;

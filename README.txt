@@ -15,10 +15,11 @@
 
 /**
  * README.txt
- * @version       2014-12-03
+ * @version       2016-01-20-00
  * @package       mod_publication
  * @author        Andreas Hruska (andreas.hruska@tuwien.ac.at)
  * @author        Katarzyna Potocka (katarzyna.potocka@tuwien.ac.at)
+ * @author        Philipp Hager (office@phager.at)
  * @author        Andreas Windbichler
  * @author        Eva Karall (eva.maria.karall@univie.ac.at)
  * @copyright     2014 Academic Moodle Cooperation {@link http://www.academic-moodle-cooperation.org}
@@ -26,7 +27,7 @@
  */
 
 # ---------------------------------------------------------------
-# FOR Moodle 2.7+
+# FOR Moodle 2.9+
 # ---------------------------------------------------------------
 
 Publication module
@@ -47,13 +48,13 @@ OVERVIEW
 
 REQUIREMENTS
 ================================================================================
-    Moodle 2.7.2 or later
+    Moodle 2.9 or later
 
-INSTALLATION 
+INSTALLATION
 ================================================================================
     To install, extract the contents of the archive to the mod/ folder in the moodle
-    root folder, and all of the archive's contents will be properly placed into the 
-    folder structure. The module and all of its files is located in mod/publication 
+    root folder, and all of the archive's contents will be properly placed into the
+    folder structure. The module and all of its files is located in mod/publication
     folder and require no other files or folders.
 
     The langfiles can be put into the folder mod/publication/lang normally.
@@ -66,3 +67,14 @@ INSTALLATION
 
 CHANGELOG
 ================================================================================
+v 2016012000
+-------------------------
+*) removed some unused code
+*) updated language strings (fix typos, termini, etc.)
+*) check capability publication:upload for submit button
+*) fix uninitialized variable corrupting ZIP files with debugging enabled
+*) remove unused settings and deprecate unused lang strings
+*) replace javascript with AMD modules based on JQuery instead of YUI
+*) remove unused cron setting from version.php
+*) disable assignments with teamsubmissions enabled in publication until teamsubmissions are supported
+*) fix usage of fullname function (don't override fullname format anymore)

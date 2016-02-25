@@ -20,6 +20,7 @@
  * @package       mod_publication
  * @author        Andreas Hruska (andreas.hruska@tuwien.ac.at)
  * @author        Katarzyna Potocka (katarzyna.potocka@tuwien.ac.at)
+ * @author        Philipp Hager (office@phager.at)
  * @author        Andreas Windbichler
  * @copyright     2014 Academic Moodle Cooperation {@link http://www.academic-moodle-cooperation.org}
  * @license       http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -33,7 +34,13 @@ require_once($CFG->dirroot.'/mod/publication/locallib.php');
 /**
  * Form for creating and editing rssplayer instances
  *
- * @author Andreas Windbichler
+ * @package       mod_publication
+ * @author        Andreas Hruska (andreas.hruska@tuwien.ac.at)
+ * @author        Katarzyna Potocka (katarzyna.potocka@tuwien.ac.at)
+ * @author        Philipp Hager (office@phager.at)
+ * @author        Andreas Windbichler
+ * @copyright     2014 Academic Moodle Cooperation {@link http://www.academic-moodle-cooperation.org}
+ * @license       http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class mod_publication_mod_form extends moodleform_mod{
 
@@ -43,13 +50,7 @@ class mod_publication_mod_form extends moodleform_mod{
     public function definition() {
         global $DB, $CFG, $COURSE, $PAGE, $OUTPUT;
 
-        $jsmodule = array(
-                'name' => 'mod_publication',
-                'fullpath' => '/mod/publication/publication.js',
-                'requires' => array('node-base', 'node-event-simulate'),
-        );
-
-        $PAGE->requires->js_init_call('M.mod_publication.init_mod_form', array(), false, $jsmodule);
+        $PAGE->requires->js_call_amd('mod_publication/modform', 'initializer', array());
 
         $config = get_config('publication');
 
@@ -65,9 +66,8 @@ class mod_publication_mod_form extends moodleform_mod{
         }
         $mform->addRule('name', null, 'required', null, 'client');
 
-        $requireintro = (isset($config->requiremodintro) && $config->requiremodintro == 1) ? true : false;
-
-        $this->add_intro_editor($requireintro);
+        // Adding the standard "intro" and "introformat" fields!
+        $this->standard_intro_elements();
 
         // Publication specific elements.
         $mform->addElement('header', 'publication', get_string('modulename', 'publication'));
@@ -99,11 +99,18 @@ class mod_publication_mod_form extends moodleform_mod{
         $choices = array();
         $choices[- 1] = get_string('choose', 'publication');
         $assigninstances = $DB->get_records('assign', array('course' => $COURSE->id));
+        $select = $mform->createElement('select', 'importfrom', get_string('assignment', 'publication'), $choices, $disabled);
         foreach ($assigninstances as $assigninstance) {
-            $choices[$assigninstance->id] = $assigninstance->name;
+            // Disable option if teamsubmission is enabled! TODO: make teamsubmissions work with mod_publication!
+            if ($assigninstance->teamsubmission) {
+                $options = array('disabled' => 'disabled');
+            } else {
+                $options = array();
+            }
+            $select->addOption($assigninstance->name, $assigninstance->id, $options);
         }
-
-        $mform->addElement('select', 'importfrom', get_string('assignment', 'publication'), $choices, $disabled);
+        $mform->addElement($select);
+        $mform->addHelpButton('importfrom', 'assignment', 'publication');
         if (count($disabled) == 0) {
             $mform->disabledif ('importfrom', 'mode', 'neq', PUBLICATION_MODE_IMPORT);
         }
@@ -200,13 +207,9 @@ class mod_publication_mod_form extends moodleform_mod{
         $this->add_action_buttons();
     }
 
-    public function data_preprocessing(&$defaultvalues) {
-        // Prepares the data to show up in the edit form.
-
-    }
-
     /**
      * Perform minimal validation on the settings form
+     *
      * @param array $data
      * @param array $files
      */
