@@ -15,7 +15,7 @@
 
 /**
  * README.txt
- * @version       2016-01-20-02
+ * @version       2016-05-11
  * @package       mod_publication
  * @author        Andreas Hruska (andreas.hruska@tuwien.ac.at)
  * @author        Katarzyna Potocka (katarzyna.potocka@tuwien.ac.at)
@@ -27,7 +27,7 @@
  */
 
 # ---------------------------------------------------------------
-# FOR Moodle 2.9+
+# FOR Moodle 3.0+
 # ---------------------------------------------------------------
 
 Publication module
@@ -48,7 +48,7 @@ OVERVIEW
 
 REQUIREMENTS
 ================================================================================
-    Moodle 2.9 or later
+    Moodle 3.0 or later
 
 INSTALLATION
 ================================================================================
@@ -67,13 +67,11 @@ INSTALLATION
 
 CHANGELOG
 ================================================================================
-v 2016012002
+v 2016051100
 -------------------------
-*) fixed bug causing files to not be restored correctly
-
-v 2016012001
--------------------------
-*) lang string changes
+*) PHP 7 compatibility!
+*) Reformatted parts of code (code checker issues)
+*) Fix files not being restored correctly
 
 v 2016012000
 -------------------------
